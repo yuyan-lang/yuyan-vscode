@@ -3,6 +3,7 @@
   "displayName": "yuyanlsp",
   "description": "",
   "version": "0.0.1",
+
   "engines": {
     "vscode": "^1.62.0"
   },
@@ -21,8 +22,20 @@
             "type": "string",
             "default": "yy",
             "description": "Path of the yuyan implementation `yy`. "
+          },
+          "yuyan.trace.server": {
+            "scope": "window",
+            "type": "string",
+            "enum": [
+              "off",
+              "messages",
+              "verbose"
+            ],
+            "default": "verbose",
+            "description": "Traces the communication between VS Code and the language server."
           }
-        },
+        }
+      },
       "languages": [
         {
           "id": "yuyan",
@@ -32,7 +45,6 @@
           "aliases": ["Yuyan"]
         }
       ]
-    }
   },
   "scripts": {
     "lint": "eslint .",

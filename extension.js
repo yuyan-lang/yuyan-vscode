@@ -1,15 +1,15 @@
-import * as path from 'path';
-import { workspace, ExtensionContext } from 'vscode';
+const { workspace, ExtensionContext } =require('vscode');
+var path = require('path');
 
-import {
+const {
   LanguageClient,
   LanguageClientOptions,
   ServerOptions,
   TransportKind
-} from 'vscode-languageclient/node';
+} =require('vscode-languageclient/node');
 
 let client
-export function activate(context ) {
+function activate(context ) {
   // The server is implemented in node
 //   let serverModule = context.asAbsolutePath(path.join('server', 'out', 'server.js'));
   // The debug options for the server
@@ -17,13 +17,18 @@ export function activate(context ) {
   let debugOptions = {}
   
 
-  let yyPath = workspace.getConfiguration("yuyan.executablePath")
+  let yyPath = workspace.getConfiguration("yuyan").get("executablePath")
+  if (!path.isAbsolute(yyPath)){
+    yyPath = context.asAbsolutePath(yyPath)
+  }
+  console.log(yyPath)
   // If the extension is launched in debug mode then the debug server options are used
   // Otherwise the run options are used
   let serverOptions = {
     run: { command: yyPath + " lsp", transport: TransportKind.stdio },
     debug: {
-      module: yyPath + " lsp",
+      command: yyPath + " lsp",
+      command: yyPath,
       transport: TransportKind.stdio,
       options: debugOptions
     }
@@ -41,8 +46,8 @@ export function activate(context ) {
 
   // Create the language client and start the client.
    client = new LanguageClient(
-    'languageServerExample',
-    'Language Server Example',
+    'yuyan',
+    'Yuyan',
     serverOptions,
     clientOptions
   );
@@ -51,9 +56,13 @@ export function activate(context ) {
   client.start();
 }
 
-export function deactivate() {
+function deactivate() {
   if (!client) {
     return undefined;
   }
   return client.stop();
+}
+
+module.exports = {
+  activate,deactivate
 }
