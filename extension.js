@@ -19,7 +19,7 @@ function activate(context ) {
 
   let yyPath = workspace.getConfiguration("yuyan").get("executablePath")
   if (!path.isAbsolute(yyPath)){
-    yyPath = context.asAbsolutePath(yyPath)
+    yyPath = path.join(workspace.workspaceFolders[0].uri.fsPath, yyPath)
   }
   console.log(yyPath)
   // If the extension is launched in debug mode then the debug server options are used
