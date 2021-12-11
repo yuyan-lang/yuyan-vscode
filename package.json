@@ -3,6 +3,7 @@
   "displayName": "yuyanlsp",
   "description": "",
   "version": "0.0.1",
+  "repository": "https://github.com/yuyan-lang/yuyanlsp",
 
   "engines": {
     "vscode": "^1.62.0"
@@ -20,7 +21,7 @@
         "properties": {
           "yuyan.executablePath": {
             "type": "string",
-            "default": "yy",
+            "default": "",
             "description": "Path of the yuyan implementation `yy`. "
           },
           "yuyan.trace.server": {

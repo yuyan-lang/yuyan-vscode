@@ -18,17 +18,18 @@ function activate(context ) {
   
 
   let yyPath = workspace.getConfiguration("yuyan").get("executablePath")
-  if (!path.isAbsolute(yyPath)){
+  if (yyPath=="") {
+    yyPath = "yy"
+  } else if (!path.isAbsolute(yyPath)){
     yyPath = path.join(workspace.workspaceFolders[0].uri.fsPath, yyPath)
   }
   console.log(yyPath)
   // If the extension is launched in debug mode then the debug server options are used
   // Otherwise the run options are used
   let serverOptions = {
-    run: { command: yyPath + " lsp", transport: TransportKind.stdio },
+    run: { command: yyPath, args:["lsp"], transport: TransportKind.stdio },
     debug: {
-      command: yyPath + " lsp",
-      command: yyPath,
+      command: yyPath, args:["lsp"],
       transport: TransportKind.stdio,
       options: debugOptions
     }
