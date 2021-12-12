@@ -41,9 +41,27 @@
         {
           "id": "yuyan",
           "extensions": [
-            ".yuyan"
+            ".yuyan",
+            "。豫",
+            ".yyon"
           ],
           "aliases": ["Yuyan"]
+        }
+      ],
+      "semanticTokenScopes": [
+        {
+          "language": "yuyan",
+          "scopes": {
+      "TkTpStructureKeyword": ["markup.bold"],
+      "TkTpTypeKeyword": ["keyword.control"],
+      "TkTpExprKeyword": ["keyword.operator"],
+      "TkTpIdentifierBinder": ["variable.parameter"],
+      "TkTpIdentifierReference": ["variable.other"],
+      "TkTpCustomOperatorName": ["entity.name.function"],
+      "TkTpStringLiteral" : ["string.quoted"],
+      "TkTpLabel": ["entity.name.tag"],
+      "TkTpComment" : ["comment.line"]
+          }
         }
       ]
   },
