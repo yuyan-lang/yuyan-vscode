@@ -1,4 +1,4 @@
-const { workspace, ExtensionContext } =require('vscode');
+const { workspace, ExtensionContext, languages } =require('vscode');
 var path = require('path');
 
 const {
@@ -7,16 +7,49 @@ const {
   ServerOptions,
   TransportKind
 } =require('vscode-languageclient/node');
+const { getVSCodeDownloadUrl } = require('@vscode/test-electron/out/util');
 
 let client
 function activate(context ) {
+  // languages.registerOnTypeFormattingEditProvider("yuyan", 
+  // {
+  //   provideOnTypeFormattingEdits: function (model, position, ch, options, token) {
+	// 	console.log("inside provideOnTypeFormattingEdits");
+	// 	return [
+	// 		{
+	// 		  range: {
+	// 			startLineNumber: position.line,
+	// 			startColumn: position.character-1,
+	// 			endLineNumber: position.line,
+	// 			endColumn: position.character
+	// 		  },
+	// 		  text: (() => {
+  //         switch(ch){
+  //           case '（':
+  //           case '(':
+  //             return '「'
+  //           case '）':
+  //           case ')':
+  //             return '」'
+  //           case '`':
+  //             return '『'
+  //           case '\'':
+  //             return '』';
+  //           default:
+  //             return "BUG!!! in vscode extension"
+  //         }
+  //       })()
+	// 		}
+	// 	]
+  //   }
+  // }, "（", ["(", "）", ")", "`", "'"]
+  //   ); 
+
   // The server is implemented in node
 //   let serverModule = context.asAbsolutePath(path.join('server', 'out', 'server.js'));
   // The debug options for the server
   // --inspect=6009: runs the server in Node's Inspector mode so VS Code can attach to the server for debugging
   let debugOptions = {}
-  
-
   let yyPath = workspace.getConfiguration("yuyan").get("executablePath")
   if (yyPath=="") {
     yyPath = "yy"
@@ -55,6 +88,8 @@ function activate(context ) {
 
   // Start the client. This will also launch the server
   client.start();
+
+  
 }
 
 function deactivate() {
