@@ -7,7 +7,6 @@ const {
   ServerOptions,
   TransportKind
 } =require('vscode-languageclient/node');
-const { getVSCodeDownloadUrl } = require('@vscode/test-electron/out/util');
 
 let client
 function activate(context ) {
