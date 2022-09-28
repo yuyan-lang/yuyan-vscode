@@ -5,7 +5,6 @@
   "version": "0.0.5",
   "repository": "https://github.com/yuyan-lang/yuyan-vscode",
   "publisher": "yuyan-lang",
-
   "engines": {
     "vscode": "^1.62.0"
   },
@@ -17,55 +16,75 @@
   ],
   "main": "./extension.js",
   "contributes": {
-      "configuration": {
-        "title": "Yuyan",
-        "properties": {
-          "yuyan.executablePath": {
-            "type": "string",
-            "default": "",
-            "description": "Path of the yuyan implementation `yy`. "
-          },
-          "yuyan.trace.server": {
-            "scope": "window",
-            "type": "string",
-            "enum": [
-              "off",
-              "messages",
-              "verbose"
-            ],
-            "default": "verbose",
-            "description": "Traces the communication between VS Code and the language server."
-          }
-        }
-      },
-      "languages": [
-        {
-          "id": "yuyan",
-          "extensions": [
-            ".yuyan",
-            "。豫",
-            ".yyon"
+    "configuration": {
+      "title": "Yuyan",
+      "properties": {
+        "yuyan.executablePath": {
+          "type": "string",
+          "default": "",
+          "description": "Path of the yuyan implementation `yy`. "
+        },
+        "yuyan.trace.server": {
+          "scope": "window",
+          "type": "string",
+          "enum": [
+            "off",
+            "messages",
+            "verbose"
           ],
-          "aliases": ["Yuyan"],
-          "configuration": "./language-configuration.json"
+          "default": "verbose",
+          "description": "Traces the communication between VS Code and the language server."
         }
-      ],
-      "semanticTokenScopes": [
-        {
-          "language": "yuyan",
-          "scopes": {
-      "TkTpStructureKeyword": ["markup.bold"],
-      "TkTpTypeKeyword": ["keyword.control"],
-      "TkTpExprKeyword": ["keyword.operator"],
-      "TkTpIdentifierBinder": ["variable.parameter"],
-      "TkTpIdentifierReference": ["variable.other"],
-      "TkTpCustomOperatorName": ["entity.name.function"],
-      "TkTpStringLiteral" : ["string.quoted"],
-      "TkTpLabel": ["entity.name.tag"],
-      "TkTpComment" : ["comment.line"]
-          }
+      }
+    },
+    "languages": [
+      {
+        "id": "yuyan",
+        "extensions": [
+          ".yuyan",
+          "。豫",
+          ".yyon"
+        ],
+        "aliases": [
+          "Yuyan"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "semanticTokenScopes": [
+      {
+        "language": "yuyan",
+        "scopes": {
+          "TkTpStructureKeyword": [
+            "markup.bold"
+          ],
+          "TkTpTypeKeyword": [
+            "keyword.control"
+          ],
+          "TkTpExprKeyword": [
+            "keyword.operator"
+          ],
+          "TkTpIdentifierBinder": [
+            "variable.parameter"
+          ],
+          "TkTpIdentifierReference": [
+            "variable.other"
+          ],
+          "TkTpCustomOperatorName": [
+            "entity.name.function"
+          ],
+          "TkTpStringLiteral": [
+            "string.quoted"
+          ],
+          "TkTpLabel": [
+            "entity.name.tag"
+          ],
+          "TkTpComment": [
+            "comment.line"
+          ]
         }
-      ]
+      }
+    ]
   },
   "scripts": {
     "lint": "eslint .",
