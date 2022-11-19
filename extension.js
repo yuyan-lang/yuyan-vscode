@@ -1,4 +1,4 @@
-const { workspace, ExtensionContext, languages } =require('vscode');
+const { workspace, ExtensionContext, languages, commands} =require('vscode');
 var path = require('path');
 
 const {
@@ -85,10 +85,17 @@ function activate(context ) {
     clientOptions
   );
 
+  const restartDisposable = commands.registerCommand('yuyan.restartyuyanlsp', () => {
+		// The code you place here will be executed every time your command is executed
+
+		// Display a message box to the user
+    client.restart();
+	});
+
+	context.subscriptions.push(restartDisposable);
+
   // Start the client. This will also launch the server
   client.start();
-
-  
 }
 
 function deactivate() {
@@ -97,6 +104,7 @@ function deactivate() {
   }
   return client.stop();
 }
+
 
 module.exports = {
   activate,deactivate

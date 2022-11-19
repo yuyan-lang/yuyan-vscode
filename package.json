@@ -2,12 +2,11 @@
   "name": "yuyan-vscode",
   "displayName": "yuyan-vscode",
   "description": "",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "repository": "https://github.com/yuyan-lang/yuyan-vscode",
   "publisher": "yuyan-lang",
-
   "engines": {
-    "vscode": "^1.62.0"
+    "vscode": "^1.73.1"
   },
   "categories": [
     "Other"
@@ -17,55 +16,88 @@
   ],
   "main": "./extension.js",
   "contributes": {
-      "configuration": {
-        "title": "Yuyan",
-        "properties": {
-          "yuyan.executablePath": {
-            "type": "string",
-            "default": "",
-            "description": "Path of the yuyan implementation `yy`. "
-          },
-          "yuyan.trace.server": {
-            "scope": "window",
-            "type": "string",
-            "enum": [
-              "off",
-              "messages",
-              "verbose"
-            ],
-            "default": "verbose",
-            "description": "Traces the communication between VS Code and the language server."
-          }
-        }
-      },
-      "languages": [
-        {
-          "id": "yuyan",
-          "extensions": [
-            ".yuyan",
-            "。豫",
-            ".yyon"
+    "configuration": {
+      "title": "Yuyan",
+      "properties": {
+        "yuyan.executablePath": {
+          "type": "string",
+          "default": "",
+          "description": "Path of the yuyan implementation `yy`. "
+        },
+        "yuyan.trace.server": {
+          "scope": "window",
+          "type": "string",
+          "enum": [
+            "off",
+            "messages",
+            "verbose"
           ],
-          "aliases": ["Yuyan"],
-          "configuration": "./language-configuration.json"
+          "default": "verbose",
+          "description": "Traces the communication between VS Code and the language server."
         }
-      ],
-      "semanticTokenScopes": [
-        {
-          "language": "yuyan",
-          "scopes": {
-      "TkTpStructureKeyword": ["markup.bold"],
-      "TkTpTypeKeyword": ["keyword.control"],
-      "TkTpExprKeyword": ["keyword.operator"],
-      "TkTpIdentifierBinder": ["variable.parameter"],
-      "TkTpIdentifierReference": ["variable.other"],
-      "TkTpCustomOperatorName": ["entity.name.function"],
-      "TkTpStringLiteral" : ["string.quoted"],
-      "TkTpLabel": ["entity.name.tag"],
-      "TkTpComment" : ["comment.line"]
-          }
+      }
+    },
+    "languages": [
+      {
+        "id": "yuyan",
+        "extensions": [
+          ".yuyan",
+          "。豫",
+          ".yyon"
+        ],
+        "aliases": [
+          "Yuyan"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "yuyan",
+        "scopeName": "source.yuyan",
+        "path": "./yuyan.tmGrammar.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "yuyan.restartyuyanlsp",
+        "title": "Yuyan: Restart Yuyan Language Server 重启豫言的语言服务器"
+      }
+    ],
+    "semanticTokenScopes": [
+      {
+        "language": "yuyan",
+        "scopes": {
+          "TkTpStructureKeyword": [
+            "markup.bold"
+          ],
+          "TkTpTypeKeyword": [
+            "keyword.control"
+          ],
+          "TkTpExprKeyword": [
+            "keyword.operator"
+          ],
+          "TkTpIdentifierBinder": [
+            "variable.parameter"
+          ],
+          "TkTpIdentifierReference": [
+            "variable.other"
+          ],
+          "TkTpCustomOperatorName": [
+            "entity.other.inherited-class"
+          ],
+          "TkTpStringLiteral": [
+            "string.quoted"
+          ],
+          "TkTpLabel": [
+            "entity.name.tag"
+          ],
+          "TkTpComment": [
+            "comment.line"
+          ]
         }
-      ]
+      }
+    ]
   },
   "scripts": {
     "lint": "eslint .",
@@ -74,16 +106,16 @@
   },
   "devDependencies": {
     "@types/glob": "^7.1.4",
-    "@types/mocha": "^9.0.0",
-    "@types/node": "14.x",
-    "@types/vscode": "^1.62.0",
+    "@types/mocha": "^9.1.1",
+    "@types/node": "^14.18.33",
+    "@types/vscode": "^1.73.1",
     "@vscode/test-electron": "^1.6.2",
-    "eslint": "^8.1.0",
-    "glob": "^7.1.7",
-    "mocha": "^9.1.3",
-    "typescript": "^4.4.4"
+    "eslint": "^8.28.0",
+    "glob": "^7.2.3",
+    "mocha": "^9.2.2",
+    "typescript": "^4.9.3"
   },
   "dependencies": {
-    "vscode-languageclient": "^7.0.0"
+    "vscode-languageclient": "^8.0.2"
   }
 }
