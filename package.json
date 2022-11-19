@@ -2,7 +2,7 @@
   "name": "yuyan-vscode",
   "displayName": "yuyan-vscode",
   "description": "",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "repository": "https://github.com/yuyan-lang/yuyan-vscode",
   "publisher": "yuyan-lang",
   "engines": {
@@ -51,6 +51,13 @@
         "configuration": "./language-configuration.json"
       }
     ],
+    "grammars": [
+      {
+        "language": "yuyan",
+        "scopeName": "source.yuyan",
+        "path": "./yuyan.tmGrammar.json"
+      }
+    ],
     "semanticTokenScopes": [
       {
         "language": "yuyan",
@@ -71,7 +78,7 @@
             "variable.other"
           ],
           "TkTpCustomOperatorName": [
-            "entity.name.function"
+            "entity.other.inherited-class"
           ],
           "TkTpStringLiteral": [
             "string.quoted"

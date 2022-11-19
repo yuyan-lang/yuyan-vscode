@@ -87,8 +87,6 @@ function activate(context ) {
 
   // Start the client. This will also launch the server
   client.start();
-
-  
 }
 
 function deactivate() {
@@ -97,6 +95,7 @@ function deactivate() {
   }
   return client.stop();
 }
+
 
 module.exports = {
   activate,deactivate
