@@ -2,7 +2,7 @@
   "name": "yuyan-vscode",
   "displayName": "yuyan-vscode",
   "description": "",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "repository": "https://github.com/yuyan-lang/yuyan-vscode",
   "publisher": "yuyan-lang",
   "engines": {
@@ -48,7 +48,12 @@
         "aliases": [
           "Yuyan"
         ],
-        "configuration": "./language-configuration.json"
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "dark": "./yu-char.png",
+          "light": "./yu-char.png"
+
+        }
       }
     ],
     "grammars": [
