@@ -50,8 +50,8 @@
         ],
         "configuration": "./language-configuration.json",
         "icon": {
-          "dark": "./yu-char-dark.png",
-          "light": "./yu-char-light.png"
+          "dark": "./yu-char-xiaozhuan-dark.svg",
+          "light": "./yu-char-xiaozhuan-light.svg"
 
         }
       }
