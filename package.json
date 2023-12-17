@@ -2,7 +2,7 @@
   "name": "yuyan-vscode",
   "displayName": "yuyan-vscode",
   "description": "",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "repository": "https://github.com/yuyan-lang/yuyan-vscode",
   "publisher": "yuyan-lang",
   "engines": {
@@ -50,8 +50,8 @@
         ],
         "configuration": "./language-configuration.json",
         "icon": {
-          "dark": "./yu-char.png",
-          "light": "./yu-char.png"
+          "dark": "./yu-char-dark.png",
+          "light": "./yu-char-light.png"
 
         }
       }
