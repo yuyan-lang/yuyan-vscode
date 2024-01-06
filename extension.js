@@ -33,7 +33,7 @@ const executeDebugCommandOnCurrentFile = ((debugDirective) => {
     // Run the command from the workspace root: `./yy_bs debug showtree <relative-file-path>`
     const command = `./yy_bs debug ${debugDirective} "${relativeFilePath}"`;
 
-    exec(command, { cwd: workspaceRoot }, (error, stdout, stderr) => {
+    exec(command, { cwd: workspaceRoot, maxBuffer: 1024 * 1024 * 20 /* 20MB */ }, (error, stdout, stderr) => {
         if (error) {
             vscode.window.showErrorMessage(`Error running command: ${error.message}`);
             return;
