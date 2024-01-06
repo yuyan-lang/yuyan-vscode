@@ -11,6 +11,68 @@ const {
 } =require('vscode-languageclient/node');
 
 let client
+const executeDebugCommandOnCurrentFile = ((debugDirective) => {
+  // Get the active text editor
+  const editor = vscode.window.activeTextEditor;
+  
+  if (editor) {
+    // Get the workspace root
+    const workspaceRoot = vscode.workspace.rootPath;
+
+    if (!workspaceRoot) {
+        vscode.window.showErrorMessage('No workspace is opened');
+        return;
+    }
+
+    // Get the file path of the active document
+    const filePath = editor.document.fileName;
+
+    // Construct the full file path relative to the workspace root
+    const relativeFilePath = path.relative(workspaceRoot, filePath);
+
+    // Run the command from the workspace root: `./yy_bs debug showtree <relative-file-path>`
+    const command = `./yy_bs debug ${debugDirective} "${relativeFilePath}"`;
+
+    exec(command, { cwd: workspaceRoot }, (error, stdout, stderr) => {
+        if (error) {
+            vscode.window.showErrorMessage(`Error running command: ${error.message}`);
+            return;
+        }
+
+
+        const newFilePath = filePath + ".txt";
+        // // Create a new untitled document
+        // vscode.workspace.fs.writeFile(vscode.Uri.file(newFilePath), Buffer.from(stdout)).then(() => 
+        // {
+        //   vscode.workspace.openTextDocument(newFilePath)
+        //   .then(document => {
+        //       // Show the document in a new editor
+        //       vscode.window.showTextDocument(document, { viewColumn: vscode.ViewColumn.Beside });
+        //   })
+        //   .catch(error => {
+        //       vscode.window.showErrorMessage(`Error opening document: ${error.message}`);
+        //   });
+        // }).catch(error => {
+        //       vscode.window.showErrorMessage(`Error saving document: ${error.message}`);
+        // });
+          vscode.workspace.openTextDocument({content: stdout, language: 'plaintext'})
+          .then(document => {
+              // Show the document in a new editor
+              // document.fileName = newFilePath;
+              vscode.window.showTextDocument(document, { viewColumn: vscode.ViewColumn.Beside, preview: true, preserveFocus: true });
+          })
+          .catch(error => {
+              vscode.window.showErrorMessage(`Error opening document: ${error.message}`);
+          });
+    });
+} else {
+    vscode.window.showErrorMessage('No active text editor');
+}
+});
+const showTreeDisposable = commands.registerCommand('yuyan.debugshowtree', () => executeDebugCommandOnCurrentFile("showtree"));
+
+const showTreesDisposable = commands.registerCommand('yuyan.debugshowtrees', () => executeDebugCommandOnCurrentFile("showtrees"));
+
 function activate(context ) {
   // languages.registerOnTypeFormattingEditProvider("yuyan", 
   // {
@@ -95,77 +157,12 @@ function activate(context ) {
 	});
 
 	context.subscriptions.push(restartDisposable);
+  context.subscriptions.push(showTreeDisposable);
+  context.subscriptions.push(showTreesDisposable);
 
   // Start the client. This will also launch the server
   client.start();
 }
-const showTreeDisposable = commands.registerCommand('yuyan.debugshowtree', () => {
-  // Get the active text editor
-  const editor = vscode.window.activeTextEditor;
-  
-  if (editor) {
-      // Get the file path of the active document
-      const filePath = editor.document.fileName;
-
-      // Run the command `./yy_bs debug showtree <file-path>`
-      const command = `./yy_bs debug showtree "${filePath}"`;
-
-      exec(command, (error, stdout, stderr) => {
-          if (error) {
-              vscode.window.showErrorMessage(`Error running command: ${error.message}`);
-              return;
-          }
-
-          // Create a new output channel for the results
-          const outputChannel = vscode.window.createOutputChannel('YY Debug ShowTree');
-          outputChannel.show();
-
-          // Display the stdout in the output channel
-          outputChannel.appendLine(stdout);
-
-          // Handle errors in stderr if any
-          if (stderr) {
-              outputChannel.appendLine(`Error: ${stderr}`);
-          }
-      });
-  } else {
-      vscode.window.showErrorMessage('No active text editor');
-  }
-});
-
-const showTreesDisposable = commands.registerCommand('yuyan.debugshowtrees', () => {
-  // Get the active text editor
-  const editor = vscode.window.activeTextEditor;
-  
-  if (editor) {
-      // Get the file path of the active document
-      const filePath = editor.document.fileName;
-
-      // Run the command `./yy_bs debug showtree <file-path>`
-      const command = `./yy_bs debug showtrees "${filePath}"`;
-
-      exec(command, (error, stdout, stderr) => {
-          if (error) {
-              vscode.window.showErrorMessage(`Error running command: ${error.message}`);
-              return;
-          }
-
-          // Create a new output channel for the results
-          const outputChannel = vscode.window.createOutputChannel('YY Debug ShowTree');
-          outputChannel.show();
-
-          // Display the stdout in the output channel
-          outputChannel.appendLine(stdout);
-
-          // Handle errors in stderr if any
-          if (stderr) {
-              outputChannel.appendLine(`Error: ${stderr}`);
-          }
-      });
-  } else {
-      vscode.window.showErrorMessage('No active text editor');
-  }
-});
 
 function deactivate() {
   if (!client) {

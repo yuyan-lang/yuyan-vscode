@@ -3,3 +3,5 @@ node_modules
 *.vsix
 
 .DS_STORE
+
+access_token.txt
