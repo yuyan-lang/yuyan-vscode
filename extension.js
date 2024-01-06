@@ -1,5 +1,7 @@
 const { workspace, ExtensionContext, languages, commands} =require('vscode');
+const vscode = require('vscode')
 var path = require('path');
+const { exec } = require('child_process');
 
 const {
   LanguageClient,
@@ -97,6 +99,73 @@ function activate(context ) {
   // Start the client. This will also launch the server
   client.start();
 }
+const showTreeDisposable = commands.registerCommand('yuyan.debugshowtree', () => {
+  // Get the active text editor
+  const editor = vscode.window.activeTextEditor;
+  
+  if (editor) {
+      // Get the file path of the active document
+      const filePath = editor.document.fileName;
+
+      // Run the command `./yy_bs debug showtree <file-path>`
+      const command = `./yy_bs debug showtree "${filePath}"`;
+
+      exec(command, (error, stdout, stderr) => {
+          if (error) {
+              vscode.window.showErrorMessage(`Error running command: ${error.message}`);
+              return;
+          }
+
+          // Create a new output channel for the results
+          const outputChannel = vscode.window.createOutputChannel('YY Debug ShowTree');
+          outputChannel.show();
+
+          // Display the stdout in the output channel
+          outputChannel.appendLine(stdout);
+
+          // Handle errors in stderr if any
+          if (stderr) {
+              outputChannel.appendLine(`Error: ${stderr}`);
+          }
+      });
+  } else {
+      vscode.window.showErrorMessage('No active text editor');
+  }
+});
+
+const showTreesDisposable = commands.registerCommand('yuyan.debugshowtrees', () => {
+  // Get the active text editor
+  const editor = vscode.window.activeTextEditor;
+  
+  if (editor) {
+      // Get the file path of the active document
+      const filePath = editor.document.fileName;
+
+      // Run the command `./yy_bs debug showtree <file-path>`
+      const command = `./yy_bs debug showtrees "${filePath}"`;
+
+      exec(command, (error, stdout, stderr) => {
+          if (error) {
+              vscode.window.showErrorMessage(`Error running command: ${error.message}`);
+              return;
+          }
+
+          // Create a new output channel for the results
+          const outputChannel = vscode.window.createOutputChannel('YY Debug ShowTree');
+          outputChannel.show();
+
+          // Display the stdout in the output channel
+          outputChannel.appendLine(stdout);
+
+          // Handle errors in stderr if any
+          if (stderr) {
+              outputChannel.appendLine(`Error: ${stderr}`);
+          }
+      });
+  } else {
+      vscode.window.showErrorMessage('No active text editor');
+  }
+});
 
 function deactivate() {
   if (!client) {

@@ -2,7 +2,7 @@
   "name": "yuyan-vscode",
   "displayName": "yuyan-vscode",
   "description": "",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "repository": "https://github.com/yuyan-lang/yuyan-vscode",
   "publisher": "yuyan-lang",
   "engines": {
@@ -67,6 +67,14 @@
       {
         "command": "yuyan.restartyuyanlsp",
         "title": "Yuyan: Restart Yuyan Language Server 重启豫言的语言服务器"
+      },
+      {
+        "command": "yuyan.debugshowtree",
+        "title": "Yuyan: Debug Show Tree 调试显式语法树"
+      },
+      {
+        "command": "yuyan.debugshowtrees",
+        "title": "Yuyan: Debug Show Trees 调试显式语法树组"
       }
     ],
     "semanticTokenScopes": [
