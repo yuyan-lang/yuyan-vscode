@@ -59,7 +59,7 @@ const executeDebugCommandOnCurrentFile = ((debugDirective) => {
           .then(document => {
               // Show the document in a new editor
               // document.fileName = newFilePath;
-              vscode.window.showTextDocument(document, { viewColumn: vscode.ViewColumn.Beside, preview: true, preserveFocus: true });
+              vscode.window.showTextDocument(document, { viewColumn: vscode.ViewColumn.Active, preview: true });
           })
           .catch(error => {
               vscode.window.showErrorMessage(`Error opening document: ${error.message}`);
