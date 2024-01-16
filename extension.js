@@ -42,28 +42,28 @@ const executeDebugCommandOnCurrentFile = ((debugDirective) => {
 
         const newFilePath = filePath + ".txt";
         // // Create a new untitled document
-        // vscode.workspace.fs.writeFile(vscode.Uri.file(newFilePath), Buffer.from(stdout)).then(() => 
-        // {
-        //   vscode.workspace.openTextDocument(newFilePath)
-        //   .then(document => {
-        //       // Show the document in a new editor
-        //       vscode.window.showTextDocument(document, { viewColumn: vscode.ViewColumn.Beside });
-        //   })
-        //   .catch(error => {
-        //       vscode.window.showErrorMessage(`Error opening document: ${error.message}`);
-        //   });
-        // }).catch(error => {
-        //       vscode.window.showErrorMessage(`Error saving document: ${error.message}`);
-        // });
-          vscode.workspace.openTextDocument({content: stdout, language: 'plaintext'})
+        vscode.workspace.fs.writeFile(vscode.Uri.file(newFilePath), Buffer.from(stdout)).then(() => 
+        {
+          vscode.workspace.openTextDocument(newFilePath)
           .then(document => {
               // Show the document in a new editor
-              // document.fileName = newFilePath;
-              vscode.window.showTextDocument(document, { viewColumn: vscode.ViewColumn.Active, preview: true });
+              vscode.window.showTextDocument(document, { viewColumn: vscode.ViewColumn.Active });
           })
           .catch(error => {
               vscode.window.showErrorMessage(`Error opening document: ${error.message}`);
           });
+        }).catch(error => {
+              vscode.window.showErrorMessage(`Error saving document: ${error.message}`);
+        });
+          // vscode.workspace.openTextDocument({content: stdout, language: 'plaintext'})
+          // .then(document => {
+          //     // Show the document in a new editor
+          //     // document.fileName = newFilePath;
+          //     vscode.window.showTextDocument(document, { viewColumn: vscode.ViewColumn.Active, preview: true });
+          // })
+          // .catch(error => {
+          //     vscode.window.showErrorMessage(`Error opening document: ${error.message}`);
+          // });
     });
 } else {
     vscode.window.showErrorMessage('No active text editor');
